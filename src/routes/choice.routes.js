@@ -1,6 +1,6 @@
-import {Router} from 'express';
-import {getChoiceController, choiceController, choiceVoteController} from '../controllers/choice.controllers.js';
-import {choiceMiddlewares} from '../middlewares/choice.middleware.js';
+import { Router } from 'express';
+import { getChoiceController, choiceController, choiceVoteController } from '../controllers/choice.controllers.js';
+import { choiceMiddlewares } from '../middlewares/choice.middleware.js';
 
 
 export const ChoiceRouter = Router();
