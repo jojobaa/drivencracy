@@ -7,13 +7,14 @@ async function choiceController(req, res) {
     const choice = { title, pollId };
 
     try {
-        const pollId = await db.collection("polls").findOne({ _id: new ObjectId(pollId) });
+        const existingPoll = await db.collection("polls").findOne({ _id: new ObjectId(pollId) });
         const choiceId = await db.collection("choices").findOne({ title: title, pollId: pollId });
-        if (!pollId) {
+        if (!existingPoll) {
             res.status(404).json();
             return;
         }
-        const expired = pollId.expiredAt;
+        const expired = existingPoll.expireAt;
+        console.log(expired)
         if (dayjs(expired).isBefore(dayjs())) {
             res.status(403).json();
             return;
@@ -60,7 +61,7 @@ async function choiceVoteController(req, res) {
             return;
         }
         const pollId = await db.collection("polls").findOne({ _id: new ObjectId(choiceId.pollId) });
-        const expired = pollId.expiredAt;
+        const expired = pollId.expireAt;
         if (dayjs(expired).isBefore(dayjs())) {
             res.status(403).json();
             return;

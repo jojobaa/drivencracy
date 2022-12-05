@@ -31,7 +31,6 @@ async function resultController(req, res) {
         res.status(500).json({ message: error.message });
         return;
     }
-
 }
 
 export { resultController }
