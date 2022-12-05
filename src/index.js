@@ -14,5 +14,7 @@ server.use(Pollrouter);
 server.use(ChoiceRouter);
 server.use(resultRouter);
 
-const port = process.env.PORT || 5000;
-server.listen(port, () => console.log("Server in port 5000"));
+// const port = process.env.PORT || 5000;
+// server.listen(port, () => console.log("Server in port 5000"));
+
+server.listen(5000, () => console.log("Server in port 5000"));
