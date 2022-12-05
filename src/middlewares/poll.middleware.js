@@ -1,6 +1,6 @@
 import joi from 'joi';
 
-function PostPollMiddleware(req, res, next) {
+function pollMiddlewares(req, res, next) {
   const pollSchema = joi.object().keys({
     title: joi.string().min(1).required(),
     expireAt: joi.required(),
@@ -17,4 +17,4 @@ const validationpoll = pollSchema.validate(poll);
     } next();
   }
 
-export { PostPollMiddleware };
+export { pollMiddlewares };

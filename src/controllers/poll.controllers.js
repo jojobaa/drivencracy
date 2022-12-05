@@ -1,7 +1,7 @@
 import db from "../database/db.js";
 import dayjs from "dayjs";
 
-async function PostPollController (req, res) {
+async function pollController (req, res) {
     const { title, expireAt } = req.body;
     const poll = { title, expireAt };
 
@@ -17,16 +17,16 @@ async function PostPollController (req, res) {
     }
 }
 
-async function GetPollController (req, res) {
+async function getPollController (req, res) {
     const polls = await db.collection("polls").find({}).toArray();
     res.send(polls);
     try{
-        const polls = await db.collection("polls").find({}).toArray().reverse();
-        res.send(polls);
+        const polls = await db.collection("polls").find({}).toArray();
+        res.send(polls.reverse());
     }
     catch(err){
         res.status(500).send(err);
     }
 }
 
-export { PostPollController, GetPollController };
+export { pollController, getPollController };

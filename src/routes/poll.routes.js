@@ -1,8 +1,8 @@
 import { Router } from 'express';
-import { GetPollController, PostPollController} from '../controllers/poll.controllers.js';
-import { PostPollMiddleware } from '../middlewares/poll.middleware.js';
+import { getPollController, pollController} from '../controllers/poll.controllers.js';
+import { pollMiddlewares } from '../middlewares/poll.middleware.js';
 
-export const router = Router();
+export const Pollrouter = Router();
 
-router.get('/poll', GetPollController);
-router.post('/poll', PostPollMiddleware, PostPollController);
+Pollrouter.get('/poll', getPollController);
+Pollrouter.post('/poll', pollMiddlewares, pollController);
