@@ -5,7 +5,7 @@ async function PostPollController (req, res) {
     const { title, expireAt } = req.body;
     const poll = { title, expireAt };
 
-    if (!expireAt) {
+    if (!expireAt || dayjs(expireAt).isBefore(dayjs()) || expireAt === "") {
         poll.expireAt = dayjs().add(30, "day").format("YYYY-MM-DD HH:mm");
     }
 
@@ -22,10 +22,11 @@ async function GetPollController (req, res) {
     res.send(polls);
     try{
         const polls = await db.collection("polls").find({}).toArray();
-        res.send(polls);
-    }catch(err){
+        res.json(polls);
+    }
+    catch(err){
         res.status(500).send(err);
-        }
+    }
 }
 
 export { PostPollController, GetPollController };

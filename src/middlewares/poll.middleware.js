@@ -2,7 +2,9 @@ import joi from 'joi';
 
 function PostPollMiddleware(req, res, next) {
   const pollSchema = joi.object().keys({
-    title: joi.string().min(1).required(),});
+    title: joi.string().min(1).required(),
+    expireAt: joi.required(),
+});
 
   const validationpoll = pollSchema.validate(req.body);
     if (validationpoll.error) {
