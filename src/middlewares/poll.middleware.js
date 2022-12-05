@@ -6,7 +6,10 @@ function PostPollMiddleware(req, res, next) {
     expireAt: joi.required(),
 });
 
-  const validationpoll = pollSchema.validate(req.body);
+const { title, expireAt } = req.body;
+const poll = { title, expireAt };
+const validationpoll = pollSchema.validate(poll);
+
     if (validationpoll.error) {
       res.status(422).send(validationpoll.error.details[0].message);
       return;
