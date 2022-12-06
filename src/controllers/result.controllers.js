@@ -22,9 +22,7 @@ async function resultController(req, res) {
                 index = i;
             }
         }
-        console.log(choices[index].vote);
-
-        const poll = await db.collection('poll').findOne({ _id: ObjectId(id) });
+        const poll = await db.collection('polls').findOne({ _id: ObjectId(id) });
         res.status(200).send({ ...poll, result: { title: choices[index].title, vote: choices[index].vote } });
         return;
     } catch (error) {
