@@ -11,11 +11,9 @@ async function pollController(req, res) {
 
     try {
         await db.collection("polls").insertOne(poll);
-        res.status(201).send([poll]);
-        return;
+        return res.status(201).send([poll]);  
     } catch (err) {
-        res.status(500).send(err);
-        return;
+        return res.status(500).send(err);
     }
 }
 
@@ -24,12 +22,11 @@ async function getPollController(req, res) {
     res.send(polls);
     try {
         const polls = await db.collection("polls").find({}).toArray();
-        res.send(polls.reverse());
-        return;
+        return res.send(polls.reverse());
     }
     catch (err) {
-        res.status(500).send(err);
-        return;
+        return res.status(500).send(err);
+        
     }
 }
 

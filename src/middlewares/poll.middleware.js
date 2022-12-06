@@ -11,8 +11,8 @@ function pollMiddlewares(req, res, next) {
   const validatepoll = pollSchema.validate(poll);
 
   if (validatepoll.error) {
-    res.status(422).send(validatepoll.error.details[0].message);
-    return;
+    return res.status(422).send(validatepoll.error.details[0].message);
+    
   } next();
 }
 

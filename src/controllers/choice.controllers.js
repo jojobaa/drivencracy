@@ -10,26 +10,26 @@ async function choiceController(req, res) {
         const existingPoll = await db.collection("polls").findOne({ _id: new ObjectId(pollId) });
         const choiceId = await db.collection("choices").findOne({ title: title, pollId: pollId });
         if (!existingPoll) {
-            res.status(404).json();
-            return;
+            return res.status(404).json();
+            
         }
         const expired = existingPoll.expireAt;
         console.log(expired)
         if (dayjs(expired).isBefore(dayjs())) {
-            res.status(403).json();
-            return;
+            return res.status(403).json();
+            
         }
         if (choiceId) {
-            res.status(409).json();
-            return;
+            return res.status(409).json();
+            
         }
         await db.collection("choices").insertOne(choice);
-        res.status(201).json();
-        return;
+        return res.status(201).json();
+        
     }
     catch (err) {
-        res.status(500).json();
-        return;
+        return res.status(500).json();
+        
     }
 }
 
@@ -39,15 +39,15 @@ async function getChoiceController(req, res) {
     try {
         const choices = await db.collection("choices").find({ pollId: id }).toArray();
         if (!choices) {
-            res.status(404).json();
-            return;
+            return res.status(404).json();
+
         }
-        res.status(200).json(choices);
-        return;
+        return res.status(200).json(choices);
+
     }
     catch (err) {
-        res.status(500).json();
-        return;
+        return res.status(500).json();
+
     }
 }
 
@@ -57,21 +57,19 @@ async function choiceVoteController(req, res) {
     try {
         const choiceId = await db.collection("choices").findOne({ _id: new ObjectId(id) });
         if (!choiceId) {
-            res.status(404).json();
-            return;
+            return res.status(404).json();
+
         }
         const pollId = await db.collection("polls").findOne({ _id: new ObjectId(choiceId.pollId) });
         const expired = pollId.expireAt;
         if (dayjs(expired).isBefore(dayjs())) {
-            res.status(403).json();
-            return;
+            return res.status(403).json();
+
         }
         await db.collection("votes").insertOne(vote);
-        res.status(201).json();
-        return;
+        return res.status(201).json();
     } catch (err) {
-        res.status(500).json();
-        return;
+        return res.status(500).json();
     }
 }
 

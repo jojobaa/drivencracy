@@ -23,11 +23,11 @@ async function resultController(req, res) {
             }
         }
         const poll = await db.collection('polls').findOne({ _id: ObjectId(id) });
-        res.status(200).send({ ...poll, result: { title: choices[index].title, vote: choices[index].vote } });
-        return;
+        return res.status(200).send({ ...poll, result: { title: choices[index].title, vote: choices[index].vote } });
+       
     } catch (error) {
-        res.status(500).json({ message: error.message });
-        return;
+        return res.status(500).json({ message: error.message });
+        
     }
 }
 

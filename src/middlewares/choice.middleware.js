@@ -7,8 +7,8 @@ export function choiceMiddlewares(req, res, next) {
     const { error } = choiceSchema.validate(req.body);
 
     if (error) {
-        res.status(422).json({ message: error.message });
-        return;
+        return res.status(422).json({ message: error.message });
+       
     }
     next();
 }
